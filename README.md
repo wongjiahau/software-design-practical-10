@@ -19,6 +19,47 @@ Adapter pattern.
 ```java
 public class SalesStaffAdapter extends PersonalDetails {
     private SalesStaff salesStaff;
-    public SalesStaffAdapter(SalesStaff salesStaff)
+    public SalesStaffAdapter(SalesStaff salesStaff) {
+        this.salesStaff = salesStaff;
+    }
+    public int getMonthlySalary() {
+    	  return monthlySalary;
+    }
+    
+    public abstract int calculateBonus(){
+        return salesStaff.calculateCommission();
+    }
+
+    public void showRemainingLeave(int daysApplied) {
+        // ignore daysApplied
+        int result = 20 + getNumSalesAssignment() + getNumYearsTraining().
+        System.out.println(result);
+    }
+}
+```
+```java
+public class Program {
+    public static void main(String [] args) {
+        List<PersonalDetails> personList =
+               new ArrayList<PersonalDetails>();
+        AdminStaff adam = new AdminStaff(2000);
+        ManagementStaff peter = new ManagementStaff(3000);
+        AdminStaff mary = new AdminStaff(4000);
+
+        // Added the following line
+        SalesStaffAdapter ali = new SalesStaffAdapter(new SalesStaff());
+
+        personList.add(adam);
+        personList.add(peter);
+        personList.add(mary);
+
+        // Added the following line
+        personList.add(ali);
+
+        for(PersonalDetails pd : personList) {
+            System.out.println("Monthly bonus is " + pd.calculateBonus());
+            pd.showRemainingLeave(15);
+        }
+    }
 }
 ```
