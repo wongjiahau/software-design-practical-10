@@ -215,3 +215,6 @@ public class DatabaseConnection {
 ## Answer for 2016 Q2 (a)(ii) (12 marks)
 Use adapter pattern.
 
+
+## Answer for 2016 Q5 (a) (20 marks)
+Composite pattern.
