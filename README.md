@@ -63,3 +63,63 @@ public class Program {
     }
 }
 ```
+
+## 2014 Q5 (c) (modified from C# code) (15 marks)
+
+The class hierarchy shown in Figure 5.1 is used to model different types of apartments available for sale in a newly developed condominium block. The price of each apartment type is available via the price instance variable. In addition to the two basic types of apartments available (StandardApartment and SmallApartment), potential buyers can also opt for additional options to be added on to either of these two types. These options, and the corresponding extra payment required, are as follows:
+
+|Add-on option| Additional amount to be paid|  
+|--|--|
+|Garden|View of KLCC|
+|5000|15000|
+
+
+As an example, a standard apartment with a garden would cost 55,000 while a small apartment with both the options (garden and view) would cost 50,000.
+
+### (i) Suggest a design pattern that allows the modelling of these additional options and their prices without introducing new instance variables into the existing hierarchy. Write out the additional code that you will need in this scenario based on this particular pattern.
+Answer: Decorater pattern
+```java
+public class ApartmentDecorator {
+    private AbstractApartment apartment;
+    private boolean gotGarden;
+    private boolean gotKlccView;
+
+    public ApartmentDecorator(AbstractApartment apartment, boolean gotGarden, boolean gotKlccView) {
+        this.apartment = apartment;
+        this.gotGarden = gotGarden;
+        this.gotKlccView = gotKlccView;
+    }
+
+    public int getPrice() {
+        double finalPrice = 0;
+        finalPrice += apartment.getPrice();
+        if(gotGarden) {
+            finalPrice += 5000;
+        }
+        if(gotKlccView) {
+            finalPrice += 15000;
+        }
+        return finalPrice;
+    }
+}
+```
+
+### (ii) Write some statements to go in the main() method that shows the use of this pattern to create an object representing a small apartment with a garden and a view and which returns the correct price of the apartment. 
+Answer below.
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Ali wants to buy small apartment with no extra options
+        IApartment aliPunyaApartment =
+            new ApartmentDecorator(new SmallApartment(), false, false);
+        
+        // Abu wants to buy a standard apartment with KlccView but no need garden
+        IApartment abuPunyaApartment = 
+            new ApartmentDecorator(new StandardApartment(), false, true);
+        
+        double priceThatAliNeedToPay = aliPunyaApartment.getPrice();
+
+        double priceThatAbutNeedToPay = abuPunyaApartment.getPrice();
+    }
+}
+```
