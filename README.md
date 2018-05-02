@@ -123,3 +123,68 @@ public class Main {
     }
 }
 ```
+
+## Answer for 2015 Q2 (b) (15 marks)
+```java
+public abstract class Item {
+    private String name;
+    public Item(String name) {
+        this.name = name;
+    }
+    public abstract double getPrice();
+    public abstract void addItem();
+}
+
+public class Component extends Item {
+    private double price;
+
+    public Component(String name, double price) {
+        super(name);
+        this.price = price;
+    }
+
+    @Override
+    public double getPrice() {
+        return this.price;
+    }
+
+    @Override
+    public void addItem() {
+        throw new Exception("You cannot add item to a component.");
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "(cost" this.price ")";
+    }
+}
+
+public class Assembly extends Item {
+    private ArrayList<Item> children;
+
+    public Assembly(String name) {
+        super(name);
+        this.children = new ArrayList<Item>();
+    }
+
+    @Override
+    public double getPrice() {
+        double finalPrice = 0;
+        foreach(Item item : children) {
+            finalPrice += item.getPrice();
+        }
+        return finalPrice;
+    }
+
+    @Override 
+    public String toString() {
+        String finalResult = "";
+        finalResult += return this.name 
+                    + " is a collection. The components in it are: \n";
+        foreach(Item item : children) {
+            finalResult += item.toString() + "\n";
+        }
+        return finalResult;
+    }
+}
+```
