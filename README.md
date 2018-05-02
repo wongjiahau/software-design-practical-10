@@ -188,3 +188,30 @@ public class Assembly extends Item {
     }
 }
 ```
+## Answer for 2016 Q2 (a)(i) (12 marks)
+The design pattern we need to use is Singleton.
+We use Singleton for this situation because we one to make sure the DatabaseConnection instance is only created once throughout the whole application, this is because they are resource-expensive, so we don't want to recreate them everytime we need to use it.
+
+The code is as the following:
+```java
+public class DatabaseConnection {
+    private static DatabaseConnection singletonInstance;
+
+    // In Singleton, you must make sure the constructor is private, 
+    // so that you can't call new DatabaseConnection outside of this class
+    private DatabaseConnection() {
+        // create the database connection
+    }
+
+    public static DatabaseConnection getInstance() {
+        if(singletonInstance == null) {
+            singletonInstance = new DatabaseConnection();
+        }
+        return singletonInstance; 
+    }
+}
+```
+
+## Answer for 2016 Q2 (a)(ii) (12 marks)
+Use adapter pattern.
+
